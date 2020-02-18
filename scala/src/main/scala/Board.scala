@@ -40,8 +40,9 @@ object Board {
     def apply(filled: Int) = {
         val start = Random.shuffle(for (row <- 0 until 9; col <- 0 until 9) yield (row, col)).take(filled)
         val board = new Board(start)
-        for (loc <- start)
+        for (loc <- start) {
             board.board(loc._1)(loc._2) = Random.shuffle(board.validMoves(loc._1, loc._2)).head
+        }
 
         board
     }
