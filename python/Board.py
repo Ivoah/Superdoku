@@ -6,29 +6,27 @@ RESET = '\033[0m'
 class Board:
     def __init__(self, filled):
         self.board = [[' ' for col in range(9)] for row in range(9)]
-        places = [(row, col) for row in range(9) for col in range(9)]
-        self.start = random.sample(places, filled)
-        for place in self.start:
-            self.board[place[0]][place[1]] = random.choice(self.validMoves(*place))
+        self.start = random.sample([(row, col) for row in range(9) for col in range(9)], filled)
+        for loc in self.start:
+            self.board[loc[0]][loc[1]] = random.choice(self.validMoves(*loc))
     
     def getRow(self, row):
         return self.board[row]
     
-    def getColumn(self, column):
-        return [self.board[row][column] for row in range(9)]
+    def getCol(self, col):
+        return [row[col] for row in self.board]
     
-    def getBox(self, row, column):
+    def getBox(self, row, col):
         row = row//3*3
-        column = column//3*3
-        return [self.board[r][c] for r in range(row, row+3) for c in range(column, column+3)]
+        col = col//3*3
+        return [self.board[r][c] for r in range(row, row+3) for c in range(col, col+3)]
 
-    def validMoves(self, row, column):
+    def validMoves(self, row, col):
         return list(
             {1, 2, 3, 4, 5, 6, 7, 8, 9}
             - set(self.getRow(row))
-            - set(self.getColumn(column))
-            - set(self.getBox(row, column))
-            - {' '})
+            - set(self.getCol(col))
+            - set(self.getBox(row, col)))
 
     def printBoard(self):
         print('┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓')
