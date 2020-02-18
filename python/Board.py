@@ -9,13 +9,13 @@ class Board:
         self.start = random.sample([(row, col) for row in range(9) for col in range(9)], filled)
         for loc in self.start:
             self.board[loc[0]][loc[1]] = random.choice(self.validMoves(*loc))
-    
+
     def getRow(self, row):
         return self.board[row]
-    
+
     def getCol(self, col):
         return [row[col] for row in self.board]
-    
+
     def getBox(self, row, col):
         row = row//3*3
         col = col//3*3
