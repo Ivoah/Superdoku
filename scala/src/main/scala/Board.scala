@@ -23,7 +23,7 @@ class Board(val board: Seq[Seq[Int]]) {
         println("┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓")
         for (row <- 0 until 9) {
             println("┃" + (for (i <- 0 until 9 by 3)
-                yield (for ((v, j) <- board(row).slice(i, i+3).zipWithIndex)
+                yield (for (v <- board(row).slice(i, i+3))
                     yield s" ${if (v != 0) v else ' '} "
                 ).mkString("|")
             ).mkString("┃") + "┃")
