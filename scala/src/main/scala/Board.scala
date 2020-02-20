@@ -1,9 +1,6 @@
 import scala.util.Random;
 
 class Board(val board: Seq[Seq[Int]]) {
-    val GREEN = "\u001b[0;32m"
-    val RESET = "\u001b[0m"
-
     def getRow(row: Int) = board(row).toSeq
     def getCol(col: Int) = (for (row <- board) yield row(col)).toSeq
     def getBox(row: Int, col: Int) = for (r <- row/3*3 until row/3*3+3; c <- col/3*3 until col/3*3+3) yield board(r)(c)
@@ -51,6 +48,8 @@ object Board {
             }
         }
 
-        recurse(new Board(for (r <- 0 until 9) yield for (c <- 0 until 9) yield 0), filled)
+        recurse(Board.empty, filled)
     }
+
+    def empty() = new Board(for (r <- 0 until 9) yield for (c <- 0 until 9) yield 0)
 }
