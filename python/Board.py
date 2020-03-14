@@ -10,7 +10,19 @@ class Board:
         self.start = [(r, c) for r in range(self.size**2) for c in range(self.size**2) if self.board[r][c] != 0]
     
     def copy(self):
-        return Board(self.asString())
+        newBoard = Board(self.asString())
+        newBoard.start = self.start
+        return newBoard
+
+    def dependsOn(self, row, col):
+        rt = row//self.size*self.size
+        ct = col//self.size*self.size
+        return list(
+            set(
+                [(row, c) for c in range(self.size**2) if self.board[row][c] == 0]
+                + [(r, col) for r in range(self.size**2) if self.board[r][col] == 0]
+                + [(r, c) for r in range(rt, rt+self.size) for c in range(ct, ct+self.size) if self.board[r][c] == 0])
+            - {(row, col)})
 
     def getRow(self, row):
         return self.board[row]
@@ -37,7 +49,7 @@ class Board:
         return [(r, c) for r in range(self.size**2) for c in range(self.size**2) if self.board[r][c] == 0]
     
     def solved(self):
-        return self.emptyCells() == 0
+        return len(self.emptyCells()) == 0
 
     def asString(self):
         return ''.join(''.join(map(str, row)) for row in self.board)
