@@ -25,7 +25,7 @@ def ac3(board):
         for a in domains[i]:
             newBoard = board.copy()
             newBoard.makeMove(*i, a)
-            if all(b not in newBoard.validMoves(*j) for b in domains[j]):
+            if not any(b in newBoard.validMoves(*j) for b in domains[j]):
                 domains[i].remove(a)
                 revised = True
         return revised
