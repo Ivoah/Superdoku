@@ -62,7 +62,7 @@ class Board:
         for row in range(self.size**2):
             print('┃' + '┃'.join(
                 '│'.join(
-                    (f' {GREEN}{v}{RESET} ' if (row, i+j) in self.start else f' {v} ') if v != 0 else '   '
+                    (f' {v} ' if (row, i+j) in self.start else f' {GREEN}{v}{RESET} ') if v != 0 else '   '
                     for j, v in enumerate(self.board[row][i:i+self.size]))
                 for i in range(0, self.size**2, self.size)) + '┃')
             if (row+1)%self.size == 0:
